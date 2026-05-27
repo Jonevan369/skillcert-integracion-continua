@@ -1,0 +1,12 @@
+node_modules
+.DS_Store
+.venv
+.env
+.env.*
+dist
+coverage
+*.log
+server/data/*.db
+server/data/*.db-journal
+server/server/data/*.db
+server/server/data/*.db-journal

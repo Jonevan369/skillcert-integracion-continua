@@ -1,0 +1,17 @@
+import React from 'react';
+import { cn } from '../../lib/utils.js';
+
+export function Badge({ className, variant = 'default', ...props }) {
+  const styles = {
+    default: 'bg-emerald-50 text-emerald-700 ring-emerald-100 dark:bg-emerald-950 dark:text-emerald-300',
+    secondary: 'bg-slate-100 text-slate-700 ring-slate-200 dark:bg-slate-800 dark:text-slate-200',
+    blue: 'bg-sky-50 text-sky-700 ring-sky-100 dark:bg-sky-950 dark:text-sky-300',
+    gold: 'bg-amber-50 text-amber-700 ring-amber-100 dark:bg-amber-950 dark:text-amber-300'
+  };
+  return (
+    <span
+      className={cn('inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ring-1', styles[variant], className)}
+      {...props}
+    />
+  );
+}

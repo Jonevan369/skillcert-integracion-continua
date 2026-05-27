@@ -1,0 +1,37 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: skillcert-api
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      CLIENT_URL: http://localhost:5173
+      DATABASE_PATH: /app/server/data/dev.db
+      JWT_SECRET: skillcert-docker-dev-secret
+    ports:
+      - "4000:4000"
+    volumes:
+      - skillcert-data:/app/server/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+      args:
+        VITE_API_URL: /api
+    container_name: skillcert-web
+    depends_on:
+      server:
+        condition: service_healthy
+    ports:
+      - "5173:80"
+
+volumes:
+  skillcert-data:
