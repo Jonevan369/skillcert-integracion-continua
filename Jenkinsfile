@@ -26,6 +26,7 @@ pipeline {
 
     stage('Install Dependencies') {
       steps {
+        sh 'node --version && npm --version'
         sh 'npm ci'
       }
     }
@@ -44,6 +45,7 @@ pipeline {
 
     stage('Validate Docker Compose') {
       steps {
+        sh 'docker ps'
         sh 'docker compose config'
       }
     }
