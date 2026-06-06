@@ -44,6 +44,29 @@ open http://localhost:5173
 
 El cliente consume la API mediante `/api`; Nginx redirige internamente esas peticiones al servicio `server`, demostrando comunicacion entre contenedores.
 
+## Integracion continua con Jenkins
+
+La entrega de semana 5 agrega un pipeline declarativo en `Jenkinsfile`. Jenkins valida el proyecto con las etapas de checkout, instalacion de dependencias, pruebas backend, build frontend, validacion de Docker Compose y construccion de contenedores.
+
+Requisitos del agente Jenkins:
+
+- Jenkins LTS con plugins Pipeline, Git, GitHub Branch Source, Docker Pipeline y NodeJS.
+- Node.js 20 o superior.
+- Docker Engine o Docker Desktop activo.
+- Acceso del usuario `jenkins` al daemon Docker.
+
+Ejecucion principal del pipeline:
+
+```bash
+npm ci
+npm test -w server
+npm run build
+docker compose config
+docker compose build
+```
+
+Documento de soporte: `docs/Entrega_2_Semana_5_Jenkins_SkillCert.md`.
+
 Usuarios demo:
 
 - `ana@example.com` / `password123`
